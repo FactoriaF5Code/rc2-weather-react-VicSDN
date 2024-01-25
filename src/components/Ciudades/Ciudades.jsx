@@ -43,8 +43,8 @@ const Ciudades = () => {
                         <div className="IndvidualCiudad" key={id}>
                             <p className="nameCiudad"> {name}</p>
                             <article className="temp">
-                            <p>Temperatura máxima: {temperatures.max}°C</p>
-                            <p>Temperatura mínima: {temperatures.min}°C</p>
+                            <p className="tempMax">T. máxima: {temperatures.max}°C</p>
+                            <p className="tempMin">T. mínima: {temperatures.min}°C</p>
                             </article>
                         </div>
                     ))}
