@@ -1,18 +1,16 @@
-// Ejemplo de uso de la API de OpenWeatherMap en React
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import "./HomePage.css";
 const HomePage = () => {
-    
     const [weatherData, setWeatherData] = useState(null);
-    const apiKey = "3a998884945dea0955ecd14da2ce82db";
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    `https://api.openweathermap.org/data/2.5/weather?q=ciudad&appid=${apiKey}`
+                    "https://www.el-tiempo.net/api/json/v2/home"
                 );
                 setWeatherData(response.data);
             } catch (error) {
@@ -21,22 +19,31 @@ const HomePage = () => {
         };
 
         fetchData();
-    }, [apiKey]);
+    }, []);
 
     if (!weatherData) {
         return <div>Cargando...</div>;
     }
 
+    const todayP0 = weatherData.today.p[0];
+    const todayP1 = weatherData.today.p[1];
+    const todayP2 = weatherData.today.p[2];
     return (
-      <div>
-        <Header/>
-        <h2>Condiciones meteorológicas actuales en {weatherData.name}</h2>
-        <p>Temperatura: {weatherData.main.temp}°C</p>
-        <p>Descripción: {weatherData.weather[0].description}</p>
-        <Footer />
-      </div>
+        <div className="inicio">
+            <Header />
+            <section className="cuerpo">
+                <section>
+            <h2>¿Qué esperamos hoy?</h2>
+                </section>
+                <section className="containerTextos">
+            <p className="informacion">{todayP0}</p>
+            <p className="informacion">{todayP1}</p>
+            <p className="informacion">{todayP2}</p>
+                </section>
+            </section>
+            <Footer />
+        </div>
     );
 };
-
 
 export default HomePage;

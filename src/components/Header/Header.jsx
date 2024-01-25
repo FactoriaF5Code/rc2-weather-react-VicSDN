@@ -1,9 +1,13 @@
+import "./Header.css";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header>
-      <h1>My App Header</h1>
-      {/* Aquí puedes agregar cualquier contenido adicional del encabezado */}
+      <h1> <Link to="/">EL TIEMPO EN ESPAÑA</Link></h1>
+      <h2>
+        <Link to="/Ciudades">Buscar por ciudad</Link>
+      </h2>
     </header>
   );
 };
