@@ -11,16 +11,27 @@ const Provincias = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    "https://www.el-tiempo.net/api/json/v2/provincias"
+                    "https://www.el-tiempo.net/api/json/v2/provincias",
+                    { timeout: 10000 } // Ajusta el tiempo de espera según sea necesario
                 );
                 setProvinceData(response.data);
             } catch (error) {
-                console.error("Error al obtener datos de provincias:", error);
+                if (axios.isCancel(error)) {
+                    console.log("La solicitud fue cancelada:", error.message);
+                } else {
+                    console.error("Error al obtener datos de provincias:", error);
+                }
             }
         };
 
         fetchData();
-    }, []);
+
+       
+        return () => {
+            const source = axios.CancelToken.source();
+            source.cancel("Solicitud cancelada porque el componente se desmontó.");
+        };
+    }, []); 
 
     if (!provinceData) {
         return <div>Cargando...</div>;
